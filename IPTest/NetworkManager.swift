@@ -61,9 +61,9 @@ struct Fields: Codable {
 struct Answer: Codable {
     let id: Int
     let image: String
-//    let categories: Categories
-//    let name: String
-//    let description: String
+    let categories: Categories
+    let name: String
+    let description: String
 //    let documentation: String
 //    let fields: [Fields]
     
