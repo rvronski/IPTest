@@ -11,13 +11,12 @@ class ViewController: UIViewController {
     
     
     var searchController = UISearchController(searchResultsController: nil)
-    private var list = [List]() {
+    private var list = [Answer]() {
         didSet {
             DispatchQueue.main.async {
                 self.activityIndicator.isHidden = true
                 self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
-                print("listEnd")
                 self.isLoading = true
             }
         }
@@ -57,7 +56,7 @@ class ViewController: UIViewController {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         getList { answer in
-            self.list = List.getData(model: answer)
+            self.list = answer
         }
     }
     
@@ -114,6 +113,10 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDa
 extension ViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchBar.text)
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+            getSearch(searchText: searchText) { answer in
+                self.list = answer
+            }
     }
 }

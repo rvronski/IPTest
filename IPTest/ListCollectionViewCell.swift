@@ -22,12 +22,18 @@ class ListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(model: List) {
-        self.imageView.image = model.categoryImage
+    func setup(model: Answer) {
         self.nameLabel.text = model.name
         self.descriptionLabel.text = model.description
+        getImage(stringURL: model.categories.image)
     }
-    
+    private func getImage(stringURL: String) {
+        getData(stringURL: stringURL) { data in
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: data)
+            }
+        }
+    }
     private func setupView() {
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.shadowOffset = CGSize(width: 2, height: 2)

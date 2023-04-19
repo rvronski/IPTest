@@ -98,3 +98,58 @@ func getList(complition: @escaping ([Answer]) -> Void) {
     task.resume()
     
 }
+
+func getData(stringURL: String, complition: @escaping (Data) -> Void) {
+    let img = url(stringURL)
+    let image = "http://shans.d2.i-partner.ru\(img)"
+    guard let url = URL(string: image) else {return}
+    let session = URLSession(configuration: .default)
+    let task = session.dataTask(with: url) { data, response, error in
+        if let error {
+            print(error.localizedDescription)
+            return
+        }
+        let statusCode = (response as? HTTPURLResponse)?.statusCode
+        print(statusCode ?? "")
+        if statusCode != 200 {
+            print("Status Code = \(String(describing: statusCode))")
+            return
+        }
+        guard let data else {
+            print("data = nil")
+            return
+        }
+        complition(data)
+    }
+    task.resume()
+}
+func getSearch(searchText: String, complition: @escaping ([Answer]) -> Void) {
+    let string = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+    print(string)
+    guard let url = URL(string: "http://shans.d2.i-partner.ru/api/ppp/index/?search=\(string)") else {return}
+    let session = URLSession(configuration: .default)
+    let task = session.dataTask(with: url) { data, response, error in
+        if let error {
+            print(error.localizedDescription)
+            return
+        }
+        let statusCode = (response as? HTTPURLResponse)?.statusCode
+        print(statusCode ?? "")
+        if statusCode != 200 {
+            print("Status Code = \(String(describing: statusCode))")
+            return
+        }
+        guard let data else {
+            print("data = nil")
+            return
+        }
+        do {
+            let answer = try JSONDecoder().decode([Answer].self, from: data)
+            complition(answer)
+        } catch {
+            print(error)
+        }
+    }
+    task.resume()
+    
+}

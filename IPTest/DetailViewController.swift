@@ -9,9 +9,9 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    let list: List
+    let list: Answer
     
-    init(list: List) {
+    init(list: Answer) {
         self.list = list
         super.init(nibName: nil, bundle: nil)
     }

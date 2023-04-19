@@ -14,6 +14,12 @@ class DetailView: UIView {
     private lazy var starImage = CustomImageView()
     private lazy var nameLabel = InfoLabels(inform: "", size: 20, weight: .bold, color: .black)
     private lazy var descriptionLabel = InfoLabels(inform: "", size: 15, weight: .regular, color: .gray)
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = .darkGray
+        return activityIndicator
+    }()
     private lazy var button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +34,8 @@ class DetailView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         setupView()
     }
     
@@ -35,13 +43,26 @@ class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(model:List) {
-        self.categoryImage.image = model.categoryIcon
-        self.productImage.image = model.image
+    func setup(model: Answer) {
         self.nameLabel.text = model.name
         self.descriptionLabel.text = model.description
+        getImages(model: model)
     }
-    
+    private func getImages(model: Answer) {
+        getData(stringURL: model.categories.icon) { data in
+            DispatchQueue.main.async {
+                self.categoryImage.image = UIImage(data: data)
+            }
+            
+        }
+        getData(stringURL: model.image) { data in
+            DispatchQueue.main.async {
+                self.productImage.image = UIImage(data: data)
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
+            }
+        }
+    }
     private func setupView() {
         self.backgroundColor = .white
         self.addSubview(categoryImage)
@@ -50,6 +71,7 @@ class DetailView: UIView {
         self.addSubview(nameLabel)
         self.addSubview(descriptionLabel)
         self.addSubview(button)
+        self.addSubview(activityIndicator)
         
         productImage.contentMode = .scaleAspectFit
         starImage.image = UIImage(systemName: "star")
@@ -84,6 +106,9 @@ class DetailView: UIView {
             button.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
             button.heightAnchor.constraint(equalToConstant: 50),
 
+            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: productImage.centerYAnchor)
+            
         ])
     }
 }
