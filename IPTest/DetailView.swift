@@ -19,6 +19,9 @@ class DetailView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.setTitle("ГДЕ КУПИТЬ", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.layer.borderWidth = 0.7
         button.clipsToBounds = true
         return button
     }()
@@ -32,9 +35,9 @@ class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(model:List, Image: UIImage) {
-        self.categoryImage.image = model.categoryImage
-        self.productImage.image = Image
+    func setup(model:List) {
+        self.categoryImage.image = model.categoryIcon
+        self.productImage.image = model.image
         self.nameLabel.text = model.name
         self.descriptionLabel.text = model.description
     }
@@ -48,7 +51,9 @@ class DetailView: UIView {
         self.addSubview(descriptionLabel)
         self.addSubview(button)
         
+        productImage.contentMode = .scaleAspectFit
         starImage.image = UIImage(systemName: "star")
+        starImage.tintColor = .gray
         
         NSLayoutConstraint.activate([
         

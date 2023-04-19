@@ -10,11 +10,9 @@ import UIKit
 class DetailViewController: UIViewController {
     
     let list: List
-    let image: UIImage
     
-    init(list: List, image: UIImage) {
+    init(list: List) {
         self.list = list
-        self.image = image
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,11 +32,6 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailView.setup(model: list, Image: image)
-
-       
+        detailView.setup(model: list)
     }
-    
-
-   
 }

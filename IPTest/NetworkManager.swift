@@ -76,7 +76,6 @@ func getList(complition: @escaping ([Answer]) -> Void) {
     let task = session.dataTask(with: url) { data, response, error in
         if let error {
             print(error.localizedDescription)
-            
             return
         }
         let statusCode = (response as? HTTPURLResponse)?.statusCode

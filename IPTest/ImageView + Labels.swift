@@ -13,7 +13,7 @@ class CustomImageView: UIImageView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
-        contentMode = .scaleAspectFit
+//        contentMode = .scaleAspectFit
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,7 +26,7 @@ class InfoLabels: UILabel {
         super.init(frame: .zero)
         text = inform
         textColor = color
-        textAlignment = .center
+        textAlignment = .natural
         translatesAutoresizingMaskIntoConstraints = false
         lineBreakMode = .byWordWrapping
         numberOfLines = 0

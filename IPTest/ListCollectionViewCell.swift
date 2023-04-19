@@ -9,13 +9,9 @@ import UIKit
 
 class ListCollectionViewCell: UICollectionViewCell {
     
-    private lazy var imageView: UIImageView = {
-       let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.clipsToBounds = true
-        image.contentMode = .scaleAspectFit
-        return image
-    }()
+    private lazy var imageView = CustomImageView()
+    private lazy var nameLabel = InfoLabels(inform: "", size: 20, weight: .bold, color: .black)
+    private lazy var descriptionLabel = InfoLabels(inform: "", size: 15, weight: .regular, color: .gray)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,21 +22,42 @@ class ListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(model: UIImage) {
-        self.imageView.image = model
+    func setup(model: List) {
+        self.imageView.image = model.categoryImage
+        self.nameLabel.text = model.name
+        self.descriptionLabel.text = model.description
     }
     
-    private func setupView(){
+    private func setupView() {
+        self.contentView.layer.cornerRadius = 10
+        self.contentView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        self.contentView.layer.shadowRadius = 5
+        self.contentView.layer.shadowColor = UIColor.gray.cgColor
+        self.contentView.layer.shadowOpacity = 0.2
+        self.contentView.backgroundColor = .white
         self.contentView.addSubview(imageView)
+        self.contentView.addSubview(nameLabel)
+        self.contentView.addSubview(descriptionLabel)
+        
+        imageView.layer.cornerRadius = 10
         
         NSLayoutConstraint.activate([
         
-            self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            self.imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
-            self.imageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+            self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 12),
+            self.imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),
+            self.imageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -12),
+            self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 0.58),
+            
+            self.nameLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 12),
+            self.nameLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),
+            self.nameLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -12),
+            
+            self.descriptionLabel.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 6),
+            self.descriptionLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),
+            self.descriptionLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -12),
+            self.descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -10)
         
-        
+            
         ])
     }
     
