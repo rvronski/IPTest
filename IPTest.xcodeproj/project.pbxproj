@@ -15,10 +15,10 @@
 		455C077729F0BA1A002E5423 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C077629F0BA1A002E5423 /* Coordinatable.swift */; };
 		455C077929F0BA7F002E5423 /* ListViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C077829F0BA7F002E5423 /* ListViewCoordinator.swift */; };
 		455C078329F0C020002E5423 /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C078229F0C020002E5423 /* NetworkModel.swift */; };
+		455C078629F15AEF002E5423 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C078529F15AEF002E5423 /* ListView.swift */; };
 		458B873529E9B8E300A5B3AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458B873429E9B8E300A5B3AD /* AppDelegate.swift */; };
 		458B873729E9B8E300A5B3AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458B873629E9B8E300A5B3AD /* SceneDelegate.swift */; };
 		458B873929E9B8E300A5B3AD /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458B873829E9B8E300A5B3AD /* ListViewController.swift */; };
-		458B873C29E9B8E300A5B3AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 458B873A29E9B8E300A5B3AD /* Main.storyboard */; };
 		458B873E29E9B8E600A5B3AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 458B873D29E9B8E600A5B3AD /* Assets.xcassets */; };
 		458B874129E9B8E600A5B3AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 458B873F29E9B8E600A5B3AD /* LaunchScreen.storyboard */; };
 		458B874929E9BA3900A5B3AD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458B874829E9BA3900A5B3AD /* NetworkManager.swift */; };
@@ -35,11 +35,11 @@
 		455C077629F0BA1A002E5423 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
 		455C077829F0BA7F002E5423 /* ListViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCoordinator.swift; sourceTree = "<group>"; };
 		455C078229F0C020002E5423 /* NetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
+		455C078529F15AEF002E5423 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		458B873129E9B8E300A5B3AD /* IPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		458B873429E9B8E300A5B3AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		458B873629E9B8E300A5B3AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		458B873829E9B8E300A5B3AD /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		458B873B29E9B8E300A5B3AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		458B873D29E9B8E600A5B3AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		458B874029E9B8E600A5B3AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		458B874229E9B8E600A5B3AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,8 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				458B873829E9B8E300A5B3AD /* ListViewController.swift */,
-				458B874A29E9CC8D00A5B3AD /* ListCollectionViewCell.swift */,
+				455C078529F15AEF002E5423 /* ListView.swift */,
 				455C077429F0B864002E5423 /* ListViewModel.swift */,
+				458B874A29E9CC8D00A5B3AD /* ListCollectionViewCell.swift */,
 				455C076C29EDA9DE002E5423 /* DetailViewController.swift */,
 				455C076E29EDA9FF002E5423 /* DetailView.swift */,
 			);
@@ -142,13 +143,12 @@
 			children = (
 				458B873429E9B8E300A5B3AD /* AppDelegate.swift */,
 				458B873629E9B8E300A5B3AD /* SceneDelegate.swift */,
+				455C077D29F0BEA0002E5423 /* Networking */,
 				455C078129F0BF2D002E5423 /* Screens */,
 				455C078429F0E102002E5423 /* Coordinators */,
 				455C077B29F0BE4C002E5423 /* Factory */,
 				455C077C29F0BE6D002E5423 /* Module */,
-				455C077D29F0BEA0002E5423 /* Networking */,
 				455C077A29F0BE2A002E5423 /* Extensions */,
-				458B873A29E9B8E300A5B3AD /* Main.storyboard */,
 				458B873D29E9B8E600A5B3AD /* Assets.xcassets */,
 				458B873F29E9B8E600A5B3AD /* LaunchScreen.storyboard */,
 				458B874229E9B8E600A5B3AD /* Info.plist */,
@@ -216,7 +216,6 @@
 			files = (
 				458B874129E9B8E600A5B3AD /* LaunchScreen.storyboard in Resources */,
 				458B873E29E9B8E600A5B3AD /* Assets.xcassets in Resources */,
-				458B873C29E9B8E300A5B3AD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +228,7 @@
 			files = (
 				458B874929E9BA3900A5B3AD /* NetworkManager.swift in Sources */,
 				455C076F29EDA9FF002E5423 /* DetailView.swift in Sources */,
+				455C078629F15AEF002E5423 /* ListView.swift in Sources */,
 				455C077529F0B864002E5423 /* ListViewModel.swift in Sources */,
 				455C078329F0C020002E5423 /* NetworkModel.swift in Sources */,
 				458B874B29E9CC8D00A5B3AD /* ListCollectionViewCell.swift in Sources */,
@@ -247,14 +247,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		458B873A29E9B8E300A5B3AD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				458B873B29E9B8E300A5B3AD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		458B873F29E9B8E600A5B3AD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -5,7 +5,6 @@
 //  Created by ROMAN VRONSKY on 16.04.2023.
 //
 
-import Foundation
 import UIKit
 
 class CustomImageView: UIImageView {
@@ -13,12 +12,10 @@ class CustomImageView: UIImageView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
-//        contentMode = .scaleAspectFit
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 class InfoLabels: UILabel {

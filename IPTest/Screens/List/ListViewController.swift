@@ -25,82 +25,53 @@ class ListViewController: UIViewController {
     private var list = [Answer]() {
         didSet {
             DispatchQueue.main.async {
-                self.activityIndicator.isHidden = true
-                self.activityIndicator.stopAnimating()
-                self.collectionView.reloadData()
+                self.listView.activityIndicator.isHidden = true
+                self.listView.activityIndicator.stopAnimating()
+                self.listView.collectionView.reloadData()
             }
         }
     }
     
-    private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.color = .darkGray
-        return activityIndicator
+    private lazy var listView: ListView = {
+       let view = ListView()
+        return view
     }()
     
-    private lazy var layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        return layout
-    }()
-    
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: "ChekCell")
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .white
-        collectionView.showsVerticalScrollIndicator = false
-        return collectionView
-    }()
-    
+    override func loadView() {
+        super.loadView()
+        self.view = listView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-        viewModel.getData(networkPath: .list, stringURL: nil) { answer, data in
+        setupNavigationBar()
+        listView.configureCollectionView(dataSource: self, delegate: self)
+        loadingList()
+    }
+    
+    private func loadingList() {
+        self.listView.notFoundLabel.isHidden = true
+        self.listView.activityIndicator.isHidden = false
+        self.listView.activityIndicator.startAnimating()
+        viewModel.getData(networkPath: .list, stringURL: nil) { [weak self] answer, data in
             guard let answer else { return }
-            self.list = answer
+            self?.list = answer
         }
     }
     
-    private func setupView() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = .white
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
-        self.view.backgroundColor = .systemGreen
-        self.view.addSubview(collectionView)
-        self.view.addSubview(activityIndicator)
-        
-        NSLayoutConstraint.activate([
-            
-            self.collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.collectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            self.collectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            
-            self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-            
-        ])
     }
-    
 }
 extension ListViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         list.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChekCell", for: indexPath) as! ListCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifire, for: indexPath) as! ListCollectionViewCell
         cell.delegate = self
         cell.setup(model: list[indexPath.row])
         return cell
@@ -126,10 +97,18 @@ extension ListViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
 extension ListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-        viewModel.getSearch(searchText: searchText) { answer in
-            self.list = answer
+        listView.notFoundLabel.isHidden = true
+        self.listView.activityIndicator.isHidden = false
+        self.listView.activityIndicator.startAnimating()
+        viewModel.getSearch(searchText: searchText) { [weak self] answer in
+            if answer.isEmpty {
+                DispatchQueue.main.async {
+                    self?.list = answer
+                    self?.listView.notFoundLabel.isHidden = false
+                }
+            } else {
+                self?.list = answer
+            }
         }
     }
 }

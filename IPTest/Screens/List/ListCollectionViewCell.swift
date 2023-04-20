@@ -13,6 +13,8 @@ protocol ListCollectionViewDelegate: AnyObject {
 
 class ListCollectionViewCell: UICollectionViewCell {
     
+    static let identifire = "ListCell"
+    
     var delegate: ListCollectionViewDelegate?
     
     private lazy var imageView = CustomImageView()

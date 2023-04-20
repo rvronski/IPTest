@@ -8,7 +8,6 @@
 import Foundation
 
 enum NetworkEnvironment: String {
-    
     case list = "http://shans.d2.i-partner.ru/api/ppp/index/"
     case image = "http://shans.d2.i-partner.ru"
 }

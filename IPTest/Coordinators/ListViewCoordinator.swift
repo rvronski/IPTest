@@ -8,6 +8,7 @@
 import UIKit
 
 final class ListViewCoordinator: Coordinatable {
+    
     enum PushVC {
         case detailVC(ViewModelProtocol, Answer)
     }
@@ -35,7 +36,7 @@ final class ListViewCoordinator: Coordinatable {
     func goTo(pushTo: PushVC) {
         switch pushTo {
         case let .detailVC(viewModel,answer):
-            let viewControllerToPush = DetailViewController(viewModel: viewModel as! ListViewModelProtocol, list: answer )
+            let viewControllerToPush = DetailViewController(viewModel: viewModel as! ListViewModelProtocol, list: answer)
             (module!.view as? UINavigationController)?.pushViewController(viewControllerToPush, animated: true)
         }
     }
@@ -46,7 +47,7 @@ final class ListViewCoordinator: Coordinatable {
         }
         coordinators.append(coordinator)
     }
-
+    
     func removeCoordinator() {
         coordinators.removeAll()
     }
