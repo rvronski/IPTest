@@ -7,21 +7,31 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ListViewController: UIViewController {
     
+    var viewModel: ListViewModelProtocol
+    
+    init(viewModel: ListViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var searchController = UISearchController(searchResultsController: nil)
+    
     private var list = [Answer]() {
         didSet {
             DispatchQueue.main.async {
                 self.activityIndicator.isHidden = true
                 self.activityIndicator.stopAnimating()
                 self.collectionView.reloadData()
-                self.isLoading = true
             }
         }
     }
-    private var isLoading = false
+   
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +65,8 @@ class ViewController: UIViewController {
         setupView()
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
-        getList { answer in
+        viewModel.getData(networkPath: .list, stringURL: nil) { answer, data in
+            guard let answer else { return }
             self.list = answer
         }
     }
@@ -81,7 +92,7 @@ class ViewController: UIViewController {
     }
 
 }
-extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension ListViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         list.count
     }
@@ -89,6 +100,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChekCell", for: indexPath) as! ListCollectionViewCell
+        cell.delegate = self
         cell.setup(model: list[indexPath.row])
         return cell
     }
@@ -103,20 +115,31 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        if isLoading {
+       
             let list = self.list[indexPath.row]
-            self.navigationController?.pushViewController(DetailViewController(list: list), animated: true)
-        }
+            let vc = DetailViewController()
+            vc.list = list
+            self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-extension ViewController: UISearchBarDelegate {
+extension ListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
-            getSearch(searchText: searchText) { answer in
-                self.list = answer
-            }
+        viewModel.getSearch(searchText: searchText) { answer in
+            self.list = answer
+        }
     }
+}
+extension ListViewController: ListCollectionViewDelegate {
+    func getImage(stringURL: String, complition: @escaping (Data) -> Void) {
+        viewModel.getData(networkPath: .image, stringURL: stringURL) { answer, data in
+            guard let data else {return}
+            complition(data)
+        }
+    }
+    
+    
 }

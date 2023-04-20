@@ -9,16 +9,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    let list: Answer
-    
-    init(list: Answer) {
-        self.list = list
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var list: Answer?
     
     private lazy var detailView: DetailView = {
         let view = DetailView()
@@ -32,6 +23,7 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let list else { return }
         detailView.setup(model: list)
     }
 }

@@ -46,23 +46,23 @@ class DetailView: UIView {
     func setup(model: Answer) {
         self.nameLabel.text = model.name
         self.descriptionLabel.text = model.description
-        getImages(model: model)
+//        getImages(model: model)
     }
-    private func getImages(model: Answer) {
-        getData(stringURL: model.categories.icon) { data in
-            DispatchQueue.main.async {
-                self.categoryImage.image = UIImage(data: data)
-            }
-            
-        }
-        getData(stringURL: model.image) { data in
-            DispatchQueue.main.async {
-                self.productImage.image = UIImage(data: data)
-                self.activityIndicator.isHidden = true
-                self.activityIndicator.stopAnimating()
-            }
-        }
-    }
+//    private func getImages(model: Answer) {
+//        getData(stringURL: model.categories.icon) { data in
+//            DispatchQueue.main.async {
+//                self.categoryImage.image = UIImage(data: data)
+//            }
+//
+//        }
+//        getData(stringURL: model.image) { data in
+//            DispatchQueue.main.async {
+//                self.productImage.image = UIImage(data: data)
+//                self.activityIndicator.isHidden = true
+//                self.activityIndicator.stopAnimating()
+//            }
+//        }
+//    }
     private func setupView() {
         self.backgroundColor = .white
         self.addSubview(categoryImage)

@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ListCollectionViewDelegate: AnyObject {
+    func getImage(stringURL: String, complition: @escaping (Data) -> Void)
+}
+
 class ListCollectionViewCell: UICollectionViewCell {
+    
+    var delegate: ListCollectionViewDelegate?
     
     private lazy var imageView = CustomImageView()
     private lazy var nameLabel = InfoLabels(inform: "", size: 20, weight: .bold, color: .black)
@@ -25,15 +31,13 @@ class ListCollectionViewCell: UICollectionViewCell {
     func setup(model: Answer) {
         self.nameLabel.text = model.name
         self.descriptionLabel.text = model.description
-        getImage(stringURL: model.categories.image)
-    }
-    private func getImage(stringURL: String) {
-        getData(stringURL: stringURL) { data in
+        delegate?.getImage(stringURL: model.categories.image) { data in
             DispatchQueue.main.async {
                 self.imageView.image = UIImage(data: data)
             }
         }
     }
+   
     private func setupView() {
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.shadowOffset = CGSize(width: 2, height: 2)
