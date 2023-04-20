@@ -12,6 +12,7 @@ class DetailView: UIView {
     lazy var categoryImage = CustomImageView()
     lazy var productImage = CustomImageView()
     private lazy var starImage = CustomImageView()
+    private lazy var locationImage = CustomImageView()
     private lazy var nameLabel = InfoLabels(inform: "", size: 20, weight: .bold, color: .black)
     private lazy var descriptionLabel = InfoLabels(inform: "", size: 15, weight: .regular, color: .gray)
     lazy var activityIndicator: UIActivityIndicatorView = {
@@ -21,7 +22,7 @@ class DetailView: UIView {
         return activityIndicator
     }()
     private lazy var button: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.setTitle("ГДЕ КУПИТЬ", for: .normal)
@@ -57,12 +58,13 @@ class DetailView: UIView {
         self.addSubview(nameLabel)
         self.addSubview(descriptionLabel)
         self.addSubview(button)
+        self.button.addSubview(locationImage)
         self.addSubview(activityIndicator)
         
         productImage.contentMode = .scaleAspectFit
         starImage.image = UIImage(systemName: "star")
         starImage.tintColor = .gray
-        
+        locationImage.image = UIImage(named: "locationImage")
         NSLayoutConstraint.activate([
             
             categoryImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor,constant: 40),
@@ -91,6 +93,9 @@ class DetailView: UIView {
             button.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
             button.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
             button.heightAnchor.constraint(equalToConstant: 50),
+            
+            locationImage.centerYAnchor.constraint(equalTo: self.button.centerYAnchor),
+            locationImage.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -70),
             
             activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: productImage.centerYAnchor)

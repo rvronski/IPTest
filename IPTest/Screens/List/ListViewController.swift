@@ -72,6 +72,7 @@ class ListViewController: UIViewController {
     }
     
     private func setupView() {
+        navigationController?.navigationBar.tintColor = .white
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         self.view.backgroundColor = .systemGreen

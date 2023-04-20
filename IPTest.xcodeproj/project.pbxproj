@@ -79,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				455C077229F0B763002E5423 /* Module.swift */,
-				455C078129F0BF2D002E5423 /* Modules */,
+				455C077629F0BA1A002E5423 /* Coordinatable.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -105,12 +105,12 @@
 			path = List;
 			sourceTree = "<group>";
 		};
-		455C078129F0BF2D002E5423 /* Modules */ = {
+		455C078129F0BF2D002E5423 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				455C077F29F0BEEC002E5423 /* List */,
 			);
-			path = Modules;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		455C078429F0E102002E5423 /* Coordinators */ = {
@@ -142,12 +142,12 @@
 			children = (
 				458B873429E9B8E300A5B3AD /* AppDelegate.swift */,
 				458B873629E9B8E300A5B3AD /* SceneDelegate.swift */,
-				455C077A29F0BE2A002E5423 /* Extensions */,
+				455C078129F0BF2D002E5423 /* Screens */,
 				455C078429F0E102002E5423 /* Coordinators */,
 				455C077B29F0BE4C002E5423 /* Factory */,
 				455C077C29F0BE6D002E5423 /* Module */,
 				455C077D29F0BEA0002E5423 /* Networking */,
-				455C077629F0BA1A002E5423 /* Coordinatable.swift */,
+				455C077A29F0BE2A002E5423 /* Extensions */,
 				458B873A29E9B8E300A5B3AD /* Main.storyboard */,
 				458B873D29E9B8E600A5B3AD /* Assets.xcassets */,
 				458B873F29E9B8E600A5B3AD /* LaunchScreen.storyboard */,

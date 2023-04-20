@@ -8,7 +8,6 @@
 import UIKit
 
 protocol Coordinatable: AnyObject {
-    
     var coordinators: [Coordinatable] { get }
     func addCoordinator(coordinator: Coordinatable)
     func removeCoordinator()

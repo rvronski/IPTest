@@ -37,7 +37,7 @@ class ListCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-   
+    
     private func setupView() {
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -52,7 +52,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 10
         
         NSLayoutConstraint.activate([
-        
+            
             self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 12),
             self.imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),
             self.imageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -12),
@@ -66,7 +66,7 @@ class ListCollectionViewCell: UICollectionViewCell {
             self.descriptionLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),
             self.descriptionLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -12),
             self.descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -10)
-        
+            
             
         ])
     }
