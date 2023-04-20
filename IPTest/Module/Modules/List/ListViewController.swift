@@ -31,7 +31,7 @@ class ListViewController: UIViewController {
             }
         }
     }
-   
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -79,18 +79,18 @@ class ListViewController: UIViewController {
         self.view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
-        
+            
             self.collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.collectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             self.collectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-        
+            
             self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        
+            
         ])
     }
-
+    
 }
 extension ListViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -115,11 +115,10 @@ extension ListViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-       
-            let list = self.list[indexPath.row]
-            let vc = DetailViewController()
-            vc.list = list
-            self.navigationController?.pushViewController(vc, animated: true)
+        
+        let list = self.list[indexPath.row]
+        
+        viewModel.pushToDetail(list: list)
     }
 }
 
@@ -140,6 +139,6 @@ extension ListViewController: ListCollectionViewDelegate {
             complition(data)
         }
     }
-    
-    
 }
+
+

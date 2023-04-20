@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var appcoordinator: AppCoordinator?
+    var appcoordinator: ListViewCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
         let factory = AppFactory(networkManager: NetworkManager())
         let navigationCon = UINavigationController.init()
-        let appCoordinator = AppCoordinator(factory: factory, navigationController: navigationCon)
+        let appCoordinator = ListViewCoordinator(factory: factory, navigationController: navigationCon)
         self.appcoordinator = appCoordinator
         
         self.window?.rootViewController = appCoordinator.start()

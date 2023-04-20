@@ -37,3 +37,15 @@ struct Answer: Codable {
     let name: String
     let description: String
 }
+
+func url(_ string: String) -> String {
+    let stringURL = string
+    let sIndex = stringURL.lastIndex(of: "/") ?? string.endIndex
+    let ind = stringURL.index(sIndex, offsetBy: 1)
+    let convert = stringURL[ind...]
+    let notConvert =  stringURL[..<ind]
+    let convertString = String(convert)
+    let notConvertString = String(notConvert)
+    let urlConvert = convertString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+    return notConvertString + urlConvert
+}

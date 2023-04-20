@@ -9,13 +9,13 @@ import Foundation
 
 protocol ListViewModelProtocol: ViewModelProtocol {
     func getData(networkPath: NetworkEnvironment, stringURL: String?, complition: @escaping ([Answer]?, Data?) -> Void)
-    func pushToDetail()
+    func pushToDetail(list: Answer)
     func getSearch(searchText: String, completion: @escaping ([Answer]) -> Void)
 }
 
 class ListViewModel: ListViewModelProtocol {
     
-    var coordinator: AppCoordinator!
+    var coordinator: ListViewCoordinator!
     
     private let networkManager: NetworkProtocol
     
@@ -23,8 +23,8 @@ class ListViewModel: ListViewModelProtocol {
         self.networkManager = networkManager
     }
     
-    func pushToDetail() {
-        coordinator.goTo(pushTo: .detailVC)
+    func pushToDetail(list: Answer) {
+        coordinator.goTo(pushTo: .detailVC(self, list))
     }
     
     func getData(networkPath: NetworkEnvironment, stringURL: String?, complition: @escaping ([Answer]?, Data?) -> Void) {
